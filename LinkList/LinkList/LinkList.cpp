@@ -16,51 +16,44 @@ public:
 template <class T>
 class SingleLinkList {
 public:
-	void InsertToHead(T val);
-	void InsertToTail(T val);
-	void Insert(T val, int index);
+	void InsertToHead(T val) {
+		insert(val, 1);
+	}
+	void InsertToTail(T val) {
+		GetLength();
+		insert(val, GetLength());
+	}
+	void Insert(T val, int index) {
+		insert(val, index);
+	}
 	void traverse();
-	void DeleteNode(int index);
-	void ClearList();
+	void ReverseOrderedTraverse();
+	void ClearList() {
+		while (head) {
+			DeleteNode(1);
+		}
+	}
 	void Reverse();
 	int GetLength();
 	T GetNodeValue(int index);
 private:
 	SingleLinkListNode<T>* head = nullptr;
+	void insert(T val, int index);
+	void DeleteNode(int index);
 };
 
 template<class T>
-void SingleLinkList<T>::InsertToHead(T val) {
-	SingleLinkListNode<T>* temp = new SingleLinkListNode<T>(val);
-	temp->next = head;
-	head = temp;
-}
-
-template<class T>
-void SingleLinkList<T>::InsertToTail(T val) {
-	SingleLinkListNode<T>* temp1 = new SingleLinkListNode<T>(val);
-	SingleLinkListNode<T>* temp2 = head;
+void SingleLinkList<T>::insert(T val, int index) {
 	if (head == nullptr) {
-		head = temp1;
+		head = new SingleLinkListNode<T>(val);
 		return;
 	}
-	while (temp2->next) {
-		temp2 = temp2->next;
-	}
-	temp2->next = temp1;
-}
-
-template<class T>
-void SingleLinkList<T>::Insert(T val, int index) {
-	if (index == 1) {
-		InsertToHead(val);
+	else if (index == 1) {
+		SingleLinkListNode<T>* temp = new SingleLinkListNode<T>(val);
+		temp->next = head;
+		head = temp;
 		return;
 	}
-	else if (index == 0) {
-		std::cout << "It'ld start for 1";
-		return;
-	}
-
 	if (index > GetLength()) {
 		std::cout << "Index out of bounds\n";
 		return;
@@ -82,6 +75,21 @@ void SingleLinkList<T>::traverse() {
 	while (current) {
 		std::cout << ' ' << current->val;
 		current = current->next;
+	}
+	std::cout << '\n';
+}
+
+template<class T>
+void SingleLinkList<T>::ReverseOrderedTraverse() {
+	SingleLinkListNode<T>* current = head;
+	std::vector<T> values;
+	while (current) {
+		values.push_back(current->val);
+		current = current->next;
+	}
+	std::cout << "List in reverse order is:";
+	for (int i = values.size() - 1; i >= 0; i--) {
+		std::cout << ' ' << values[i];
 	}
 	std::cout << '\n';
 }
@@ -143,26 +151,15 @@ void SingleLinkList<T>::Reverse() {
 
 template<class T>
 T SingleLinkList<T>::GetNodeValue(int index) {
-	if (index >= GetLength()) {
-		std::cout << "Index out of bounds\n";
-		return T();
-	}
 	SingleLinkListNode<T>* current = head;
-	for (int i = 0; i < index; i++) {
+	for (int i = 0; i < index - 1; i++) {
+		if (current == nullptr) {
+			std::cout << "Index out of bounds\n";
+			return T();
+		}
 		current = current->next;
 	}
 	return current->val;
-}
-
-template<class T>
-void SingleLinkList<T>::ClearList() {
-	SingleLinkListNode<T>* current = head;
-	while (current) {
-		SingleLinkListNode<T>* temp = current;
-		current = current->next;
-		delete temp;
-	}
-	head = nullptr;
 }
 
 int main() {
@@ -173,6 +170,7 @@ int main() {
 	List.InsertToTail("My name is Yangcy");
 	List.Insert("Wooh~", 4);
 	List.traverse();
+	List.ReverseOrderedTraverse();
 	List.ClearList();
 	List.traverse();
 	SingleLinkList<int> numList;
@@ -182,5 +180,7 @@ int main() {
 	numList.InsertToHead(-1);
 	numList.traverse();
 	numList.Reverse();
+	int num = numList.GetNodeValue(2);
+	std::cout << "The 2nd node value is: " << num << '\n';
 	numList.traverse();
 }
