@@ -8,8 +8,8 @@ public:
 	T val;
 	SingleLinkListNode* next;
 
-	SingleLinkListNode(T a) : val(a), next(NULL) {};
-	SingleLinkListNode(SingleLinkListNode* temp) : val(NULL), next(temp) {};
+	SingleLinkListNode(T a) : val(a), next(nullptr) {};
+	SingleLinkListNode(SingleLinkListNode* temp) : val(nullptr), next(temp) {};
 	SingleLinkListNode(T a, SingleLinkListNode* temp) : val(a), next(temp) {};
 };
 
