@@ -27,6 +27,7 @@ public:
 	T& Top();
 	const T& Top() const;
 	bool IsEmpty() const;
+	int Size() const;
 };
 
 template <class T>
@@ -78,6 +79,11 @@ bool LinkListBasedStack<T>::IsEmpty() const {
 	return top == nullptr;
 }
 
+template <class T>
+int LinkListBasedStack<T>::Size() const {
+	return size;
+}
+
 template <typename T>
 class ArrayBasedStack {
 private:
@@ -100,6 +106,7 @@ public:
 	T& Top();
 	const T& Top() const;
 	bool IsEmpty() const;
+	int Size() const;
 };
 
 template <class T>
@@ -146,6 +153,11 @@ const T& ArrayBasedStack<T>::Top() const {
 template <class T>
 bool ArrayBasedStack<T>::IsEmpty() const {
 	return topIndex == -1;
+}
+
+template <class T>
+int ArrayBasedStack<T>::Size() const {
+	return size;
 }
 
 #endif 
