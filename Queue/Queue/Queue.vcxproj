@@ -123,8 +123,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ArrayBasedQueues.cpp" />
-    <ClCompile Include="LinkedListBasedQueues.cpp" />
     <ClCompile Include="Queues.h" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
